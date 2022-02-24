@@ -1,5 +1,5 @@
-# Cactuses.XYZ-Cheat
+# CactusesCheat
 
-To use this cheat, simply run this one liner in the JS Console:
+To use this cheat, simply paste and run this one liner in the JS Console:
 
-(await import('url').default)(window);
+(await import('https://santigamedev.github.io/CactusesCheat/cheat.js').default)(window);
