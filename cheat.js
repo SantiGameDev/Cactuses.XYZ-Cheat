@@ -2,8 +2,9 @@ export default function cheat(ns){
 	if(window.__cheatsON)return 'You already turned on cheats!'
 	window.__cheatsON = true
 	const canvas = document.getElementById('gameCanvas')
+	const styles = document.getElementById('style')
 	const CSSViewModes = ["auto", "crisp-edges", "pixelated", "smooth", "high-quality"];
-	let poll = false, rapidfire = false, firing = false, cssviewmode = 2;
+	let poll = false, rapidfire = false, firing = false, cssviewmode = 2, useFullscreen = false;
 	
 	addEventListener('keyup',(event) => {if(event.key.toLowerCase() == 'c')firing = false})
 	addEventListener('keydown',(event) => {if(event.key.toLowerCase() == 'c')firing = true})
@@ -16,7 +17,8 @@ export default function cheat(ns){
 			`1) Fast Polling: ${poll}`,
 			`2) Rapid Fire: ${rapidfire}`,
 			`3) Graphics Mode: ${CSSViewModes[cssviewmode]}`,
-			'4) Clear Map Data (DANGEROUS!) (removes 99% of walls)'
+			'4) Clear Map Data (DANGEROUS!) (removes 99% of walls)',
+			'5) True Fullscreen: ${useFullscreen} (uses pro HTML skillz)'
 		].join('\n');
 	
 		switch(prompt(message, '0')){
@@ -51,13 +53,22 @@ export default function cheat(ns){
 					ns.levelBuilt=[];
 					alert('Wow! I really thought you didn\'t have the guts to do that!')
 				}else{
-					alert('100 SELF RESTRAINT')
+					alert('BALLIN\n\n\nBUT AT WHAT COST')
 				}
 				break;
+			case '5':
+				styles.innerHTML = (!useFullscreen) ? '' : 'html, body, canvas {overflow: hidden;margin: 0 !important;padding: 0 !important;width:100%;height:100%;display:block;background-color: #000045;position: fixed;left:0;top:0;}'
 			default:
 				alert('Are you stupid? That\'s not even on the list!')
 			}
 	});
+	canvas.onresize = resizeCanvas
+    function resizeCanvas() {
+		if(!useFullscreen)return;
+		canvas.width = ns.innerWidth;
+		canvas.height = ns.innerHeight;
+    }
+    resizeCanvas();
 	setInterval(()=>{
 		if(rapidfire && firing){ns.cKeyPressed();ns.lastShot=0;}
 		if(poll){ns.lastUpload=0;}
