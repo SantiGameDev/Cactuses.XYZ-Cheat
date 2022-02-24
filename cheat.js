@@ -57,7 +57,10 @@ export default function cheat(ns){
 				}
 				break;
 			case '5':
+				useFullscreen=!useFullscreen;
 				styles.innerHTML = (!useFullscreen) ? '' : 'html, body, canvas {overflow: hidden;margin: 0 !important;padding: 0 !important;width:100%;height:100%;display:block;background-color: #000045;position: fixed;left:0;top:0;}'
+				alert(`True Fullscreen was set to ${useFullscreen?'ON':'OFF'}`)
+				break;
 			default:
 				alert('Are you stupid? That\'s not even on the list!')
 			}
