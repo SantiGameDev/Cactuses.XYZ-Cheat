@@ -2,7 +2,7 @@ export default function cheat(ns){
 	if(window.__cheatsON)return 'You already turned on cheats!'
 	window.__cheatsON = true
 	const canvas = document.getElementById('gameCanvas')
-	const styles = document.getElementById('style')
+	const styles = document.getElementsByTagName('style')[0]
 	const CSSViewModes = ["auto", "crisp-edges", "pixelated", "smooth", "high-quality"];
 	let poll = false, rapidfire = false, firing = false, cssviewmode = 2, useFullscreen = false;
 	
