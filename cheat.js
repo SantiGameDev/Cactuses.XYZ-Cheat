@@ -16,7 +16,7 @@ export default function cheat(ns) {
 			'0) Cancel',
 			`1) Fast Polling: ${poll}`,
 			`2) Rapid Fire: ${rapidfire}`,
-			`3) Kill All Players`
+			`3) Kill All Players`,
 			`4) Depixelate: ${depixelate}`,
 			'5) Clear Map Data (DANGEROUS!) (removes 99% of walls)',
 			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`
@@ -36,16 +36,16 @@ export default function cheat(ns) {
 				const localP = ns.localPlayer;
 				localP.weaponHeld = 1; //Must be using Gun
 				let kills = 0;
-				for(const player in ns.remotePlayers){
-					if(
-						(player == null)| // Doesn't exist
-						(player.playerNum == localP.playerNum)| // That's you!
+				for (const player in ns.remotePlayers) {
+					if (
+						(player == null) | // Doesn't exist
+						(player.playerNum == localP.playerNum) | // That's you!
 						(player.team == localP.team) // WATCH WHERE YOU POINT THAT THING!
-						)continue;
-					for(let i=0;i<6;i++)socket.emit('playerShot', player.playerNum);
+					) continue;
+					for (let i = 0; i < 6; i++)socket.emit('playerShot', player.playerNum);
 					kills++;
 				}
-				alert((kills == 0)?`Nobody was killed`:`Killed ${kills} Enemy Cops! YEAH!`)
+				alert(`Killed ${kills} Enemy Cops! YEAH!`)
 				break;
 			case '4':
 				depixelate = !depixelate
@@ -79,7 +79,7 @@ export default function cheat(ns) {
 	}
 	resizeCanvas();
 	setInterval(() => {
-		if (rapidfire && firing) { ns.cKeyPressed(); ns.lastShot = 0; console.('Yukatatatata');}
+		if (rapidfire && firing) { ns.cKeyPressed(); ns.lastShot = 0; }
 		if (poll) { ns.lastUpload = 0; }
 	}, 1)
 	return 'Press "z" to open up cheat menu'
