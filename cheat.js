@@ -99,7 +99,7 @@ export default function cheat() {
 	}
 	resizeCanvas();
 	setInterval(() => {
-		if (rapidfire && firing) { cKeyPressed(); lastShot = 0; }
+		if (rapidfire && firing) { lastShot = 0; cKeyPressed(); }
 		if (poll) { lastUpload = 0; }
 	}, 1)
 	return 'Press "z" to open up cheat menu'
