@@ -3,10 +3,12 @@ export default function cheat() {
 	window.__cheatsON = true
 	const canvas = document.getElementById('gameCanvas')
 	const styles = document.createElement('style')
-	const scopeLeaker = '<script>window.__NAMESPACE = window;</script>'
-	document.body.append(styles, scopeLeaker)
 	let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
-
+	alert(remotePlayers | 'nonexistent')
+/*
+	const scopeLeaker = document.createElement('script')
+	scopeLeaker.innerHTML = ''
+	document.body.appendChild (styles, scopeLeaker)
 	const scope = new Promise((resolve) => {
 		function check() {
 			if (__NAMESPACE) {
@@ -16,6 +18,7 @@ export default function cheat() {
 			setTimeout(check, 100)
 		}
 	})
+*/
 
 	addEventListener('keyup', (event) => { if (event.key.toLowerCase() == 'c') firing = false })
 	addEventListener('keydown', (event) => { if (event.key.toLowerCase() == 'c') firing = true })
@@ -45,18 +48,18 @@ export default function cheat() {
 				break;
 			case '3':
 				const localP = ns.localPlayer;
-				let kills = 0;
-				alert(`${ns.remotePlayers.length} Players Detected!`)
+				let targets = []
 				for (const player of ns.remotePlayers) {
 					const exists = (player != null)
-					if (exists) break;
-					const notMe = (player.playerNum != localP.playerNum)
-					const oppositeTeam = (player.team != localP.team)
-					if (exists & notMe & oppositeTeam) {
-						for (let i = 0; i < 6; i++)socket.emit('playerShot', player.playerNum);
-						kills++;
+					if (exists){
+						const notMe = (player.playerNum != localP.playerNum)
+						const oppositeTeam = (player.team != localP.team)
+						if(notMe & oppositeTeam){
+							targets.push(player)
+						}
 					}
 				}
+				const confirmation = confirm(`${targets.length} targets found. Are you sure you want to do this?`)
 				alert(`Killed ${kills} Enemy Cops!`)
 				break;
 			case '4':
