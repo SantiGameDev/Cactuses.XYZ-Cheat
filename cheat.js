@@ -1,14 +1,16 @@
+import PlayerSettings from './PlayerSettings.js'
+
 export default function cheat() {
 	if (window.__cheatsON) return 'You already turned on cheats!'
 	window.__cheatsON = true
 	const canvas = document.getElementById('gameCanvas')
 	const styles = document.createElement('style')
 	let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
-	alert(remotePlayers | 'nonexistent')
-/*
-	const scopeLeaker = document.createElement('script')
-	scopeLeaker.innerHTML = ''
-	document.body.appendChild (styles, scopeLeaker)
+
+	/*
+	const scopeLeaker = '<script>window.__NAMESPACE = window;</script>'
+	document.body.append(styles, scopeLeaker)
+
 	const scope = new Promise((resolve) => {
 		function check() {
 			if (__NAMESPACE) {
@@ -18,7 +20,7 @@ export default function cheat() {
 			setTimeout(check, 100)
 		}
 	})
-*/
+	*/
 
 	addEventListener('keyup', (event) => { if (event.key.toLowerCase() == 'c') firing = false })
 	addEventListener('keydown', (event) => { if (event.key.toLowerCase() == 'c') firing = true })
@@ -33,10 +35,13 @@ export default function cheat() {
 			`3) Kill All Players`,
 			`4) Depixelate: ${depixelate}`,
 			'5) Clear Map Data (DANGEROUS!) (removes 99% of walls)',
-			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`
+			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`,
+			`7) Player Settings`
 		].join('\n');
 
-		switch (prompt(message, '0')) {
+		const setting = prompt(message, '0')
+
+		switch (setting) {
 			case '0': return
 			case '1':
 				poll = !poll;
@@ -48,24 +53,19 @@ export default function cheat() {
 				break;
 			case '3':
 				const localP = localPlayer;
-				let targets = []
+				let kills = 0;
+				alert(`${remotePlayers.length} Players Detected!`)
 				for (const player of remotePlayers) {
 					const exists = (player != null)
-					if (exists){
-						const notMe = (player.playerNum != localP.playerNum)
-						const oppositeTeam = (player.team != localP.team)
-						if(notMe & oppositeTeam){
-							targets.push(player.playerNum)
-						}
+					if (exists) break;
+					const notMe = (player.playerNum != localP.playerNum)
+					const oppositeTeam = (player.team != localP.team)
+					if (exists & notMe & oppositeTeam) {
+						for (let i = 0; i < 6; i++)socket.emit('playerShot', player.playerNum);
+						kills++;
 					}
 				}
-				const confirmKill = confirm(`${targets.length} targets found. Eliminate them?`)
-				if(confirmKill){
-					targets.forEach(player => {
-						for(let i=0;i<6;i++)socket.emit('playerShot', player)
-					})
-					alert(`Killed ${targets.length} Enemy Cops!`)
-				}
+				alert(`Killed ${kills} Enemy Cops!`)
 				break;
 			case '4':
 				depixelate = !depixelate
@@ -87,8 +87,12 @@ export default function cheat() {
 				canvas.style = (useFullscreen) ? '' : 'height: 480px; width: 640px; image-rendering: pixelated; margin-left: auto;margin-right: auto;display: block;'
 				alert(`True Fullscreen was set to ${useFullscreen ? 'ON' : 'OFF'}`)
 				break;
+			case '7':
+				modifier
+				ns.
+				break;
 			default:
-				alert('Are you stupid? That\'s not even on the list!')
+				alert(`Are you stupid? '${setting}' is not on the list!`)
 		}
 	});
 	canvas.onresize = resizeCanvas
@@ -99,7 +103,7 @@ export default function cheat() {
 	}
 	resizeCanvas();
 	setInterval(() => {
-		if (rapidfire && firing) { lastShot = 0; cKeyPressed(); }
+		if (rapidfire && firing) { cKeyPressed(); lastShot = 0; }
 		if (poll) { lastUpload = 0; }
 	}, 1)
 	return 'Press "z" to open up cheat menu'
