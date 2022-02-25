@@ -1,10 +1,21 @@
-export default function cheat(ns) {
+export default function cheat() {
 	if (window.__cheatsON) return 'You already turned on cheats!'
 	window.__cheatsON = true
 	const canvas = document.getElementById('gameCanvas')
 	const styles = document.createElement('style')
-	document.body.append(styles)
+	const scopeLeaker = '<script>window.__NAMESPACE = window;</script>'
+	document.body.append(styles, scopeLeaker)
 	let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
+
+	const scope = new Promise((resolve) => {
+		function check() {
+			if (__NAMESPACE) {
+				resolve(__NAMESPACE)
+				return;
+			}
+			setTimeout(check, 100)
+		}
+	})
 
 	addEventListener('keyup', (event) => { if (event.key.toLowerCase() == 'c') firing = false })
 	addEventListener('keydown', (event) => { if (event.key.toLowerCase() == 'c') firing = true })
@@ -34,18 +45,19 @@ export default function cheat(ns) {
 				break;
 			case '3':
 				const localP = ns.localPlayer;
-				localP.weaponHeld = 1; //Must be using Gun
 				let kills = 0;
-				for (const player in ns.remotePlayers) {
-					if (
-						(player == null) | // Doesn't exist
-						(player.playerNum == localP.playerNum) | // That's you!
-						(player.team == localP.team) // WATCH WHERE YOU POINT THAT THING!
-					) continue;
-					for (let i = 0; i < 6; i++)socket.emit('playerShot', player.playerNum);
-					kills++;
+				alert(`${ns.remotePlayers.length} Players Detected!`)
+				for (const player of ns.remotePlayers) {
+					const exists = (player != null)
+					if (exists) break;
+					const notMe = (player.playerNum != localP.playerNum)
+					const oppositeTeam = (player.team != localP.team)
+					if (exists & notMe & oppositeTeam) {
+						for (let i = 0; i < 6; i++)socket.emit('playerShot', player.playerNum);
+						kills++;
+					}
 				}
-				alert(`Killed ${kills} Enemy Cops! YEAH!`)
+				alert(`Killed ${kills} Enemy Cops!`)
 				break;
 			case '4':
 				depixelate = !depixelate
