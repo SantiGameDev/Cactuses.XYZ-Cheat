@@ -63,7 +63,7 @@ export default function cheat(ns) {
 	}
 	resizeCanvas();
 	setInterval(() => {
-		if (rapidfire && firing) { ns.cKeyPressed(); ns.lastShot = 0; }
+		if (rapidfire && firing) { ns.cKeyPressed(); ns.lastShot = 0; console.('Yukatatatata');}
 		if (poll) { ns.lastUpload = 0; }
 	}, 1)
 	return 'Press "z" to open up cheat menu'
