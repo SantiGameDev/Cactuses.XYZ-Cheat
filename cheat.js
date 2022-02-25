@@ -47,20 +47,25 @@ export default function cheat() {
 				alert(`Rapid Fire was set to ${rapidfire ? 'ON' : 'OFF'}`)
 				break;
 			case '3':
-				const localP = ns.localPlayer;
+				const localP = localPlayer;
 				let targets = []
-				for (const player of ns.remotePlayers) {
+				for (const player of remotePlayers) {
 					const exists = (player != null)
 					if (exists){
 						const notMe = (player.playerNum != localP.playerNum)
 						const oppositeTeam = (player.team != localP.team)
 						if(notMe & oppositeTeam){
-							targets.push(player)
+							targets.push(player.playerNum)
 						}
 					}
 				}
-				const confirmation = confirm(`${targets.length} targets found. Are you sure you want to do this?`)
-				alert(`Killed ${kills} Enemy Cops!`)
+				const confirmKill = confirm(`${targets.length} targets found. Eliminate them?`)
+				if(confirmKill){
+					targets.forEach(player => {
+						for(let i=0;i<6;i++)socket.emit('playerShot', player)
+					})
+					alert(`Killed ${targets.length} Enemy Cops!`)
+				}
 				break;
 			case '4':
 				depixelate = !depixelate
@@ -70,7 +75,7 @@ export default function cheat() {
 			case '5':
 				const confirmation = confirm('Are you sure you want to do this? The map WILL NOT reload until next visit!')
 				if (confirmation) {
-					ns.levelBuilt = [];
+					levelBuilt = [];
 					alert('Wow! I really thought you didn\'t have the guts to do that!')
 				} else {
 					alert('BALLIN\n\n\nBUT AT WHAT COST')
@@ -89,13 +94,13 @@ export default function cheat() {
 	canvas.onresize = resizeCanvas
 	function resizeCanvas() {
 		if (!useFullscreen) return;
-		canvas.width = ns.innerWidth;
-		canvas.height = ns.innerHeight;
+		canvas.width = innerWidth;
+		canvas.height = innerHeight;
 	}
 	resizeCanvas();
 	setInterval(() => {
-		if (rapidfire && firing) { ns.cKeyPressed(); ns.lastShot = 0; }
-		if (poll) { ns.lastUpload = 0; }
+		if (rapidfire && firing) { cKeyPressed(); lastShot = 0; }
+		if (poll) { lastUpload = 0; }
 	}, 1)
 	return 'Press "z" to open up cheat menu'
 }
