@@ -16,9 +16,10 @@ export default function cheat(ns) {
 			'0) Cancel',
 			`1) Fast Polling: ${poll}`,
 			`2) Rapid Fire: ${rapidfire}`,
-			`3) Depixelate: ${depixelate}`,
-			'4) Clear Map Data (DANGEROUS!) (removes 99% of walls)',
-			'5) True Fullscreen: ${useFullscreen} (uses pro HTML settings)'
+			`3) Kill All Players`
+			`4) Depixelate: ${depixelate}`,
+			'5) Clear Map Data (DANGEROUS!) (removes 99% of walls)',
+			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`
 		].join('\n');
 
 		switch (prompt(message, '0')) {
@@ -32,11 +33,26 @@ export default function cheat(ns) {
 				alert(`Rapid Fire was set to ${rapidfire ? 'ON' : 'OFF'}`)
 				break;
 			case '3':
+				const localP = ns.localPlayer;
+				localP.weaponHeld = 1; //Must be using Gun
+				let kills = 0;
+				for(const player in ns.remotePlayers){
+					if(
+						(player == null)| // Doesn't exist
+						(player.playerNum == localP.playerNum)| // That's you!
+						(player.team == localP.team) // WATCH WHERE YOU POINT THAT THING!
+						)continue;
+					for(let i=0;i<6;i++)socket.emit('playerShot', player.playerNum);
+					kills++;
+				}
+				alert((kills == 0)?`Nobody was killed`:`Killed ${kills} Enemy Cops! YEAH!`)
+				break;
+			case '4':
 				depixelate = !depixelate
 				canvas.style.imageRendering = depixelate ? 'auto' : 'pixelated'
 				alert(`Depixelate was set to ${depixelate}`)
 				break;
-			case '4':
+			case '5':
 				const confirmation = confirm('Are you sure you want to do this? The map WILL NOT reload until next visit!')
 				if (confirmation) {
 					ns.levelBuilt = [];
@@ -45,7 +61,7 @@ export default function cheat(ns) {
 					alert('BALLIN\n\n\nBUT AT WHAT COST')
 				}
 				break;
-			case '5':
+			case '6':
 				useFullscreen = !useFullscreen;
 				styles.innerHTML = (!useFullscreen) ? '' : 'html, body, canvas {overflow: hidden;margin: 0 !important;padding: 0 !important;width:100%;height:100%;display:block;background-color: #000045;position: fixed;left:0;top:0;}'
 				canvas.style = (useFullscreen) ? '' : 'height: 480px; width: 640px; image-rendering: pixelated; margin-left: auto;margin-right: auto;display: block;'
