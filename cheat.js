@@ -6,6 +6,7 @@ export default function cheat() {
 	const canvas = document.getElementById('gameCanvas')
 	const context = canvas.getContext('2d')
 	const styles = document.createElement('style')
+	document.head.appendChild(styles)
 	const normalTransform = context.getTransform()
 	let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
 
