@@ -53,7 +53,8 @@ export default function cheat() {
 			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`,
 			'7) Player Settings',
 			'8) Run arbitrary code using eval()',
-			'9) Load arbitrary code from URL'
+			'9) Load arbitrary code from URL',
+			'10 Teleport'
 		].join('\n');
 
 		const setting = prompt(message, '0')
@@ -128,6 +129,14 @@ export default function cheat() {
 				const linkScript = prompt('Insert URL to .js file (entry point should be the default exported function):', '')
 				const linkResult = (await import(linkScript)).default()
 				alert('FROM URL LOADED SCRIPT: ' + linkResult)
+				break;
+			case '10':
+				const position = prompt('Type position as "<x: number> <y: number> [dir: number]" (e.g.) ""', '')
+				const [x, y, dir] = JSON.parse('['+position+']')
+				localPlayer.x = x
+				localPlayer.y = y
+				if(dir)localPlayer.dir = dir
+				alert(`Teleported to (${x}, ${y})` + (dir) ? ` Facing ${dir} degrees`)
 				break;
 			default:
 				alert(`Are you stupid? '${setting}' is not on the list!`)
