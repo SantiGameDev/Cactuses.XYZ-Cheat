@@ -17,11 +17,12 @@ function resizeCanvas() {
 
 export default function cheat() {
 	
-	if (window.__cheatsON) return 'You already turned on cheats!'
+	if (window.__cheatsON){
+		alert('You already turned on cheats!')
+		return 'You already turned on cheats!'
+	}
 	window.__cheatsON = true
 	
-	alert(`context is ${context}`)
-
 	/*
 	const scopeLeaker = '<script>window.__NAMESPACE = window;</script>'
 	document.body.append(styles, scopeLeaker)
@@ -119,5 +120,6 @@ export default function cheat() {
 		if (rapidfire && firing) { cKeyPressed(); lastShot = 0; }
 		if (poll) { lastUpload = 0; }
 	}, 1)
+	alert('Press "z" to open up cheat menu')
 	return 'Press "z" to open up cheat menu'
 }
