@@ -1,6 +1,5 @@
 import PlayerSettings from './PlayerSettings.js'
 
-const canvas = document.getElementById('gameCanvas')
 const context = canvas.getContext('2d')
 const styles = document.createElement('style')
 document.head.appendChild(styles)
@@ -9,10 +8,11 @@ let poll = false, rapidfire = false, firing = false, depixelate = false, useFull
 
 function resizeCanvas() {
 	if (!useFullscreen) return;
-	context.setTransform(normalTransform)
-	context.scale(innerWidth / screen.width, innerHeight / screen.height)
 	canvas.width = innerWidth;
 	canvas.height = innerHeight;
+	if(!context)return
+	context.setTransform(normalTransform)
+	context.scale(innerWidth / screen.width, innerHeight / screen.height)
 }
 
 export default function cheat() {
@@ -20,7 +20,7 @@ export default function cheat() {
 	if (window.__cheatsON) return 'You already turned on cheats!'
 	window.__cheatsON = true
 	
-	alert(`Context is ${JSON.stringify(context)}`)
+	alert(`context is ${context}`)
 
 	/*
 	const scopeLeaker = '<script>window.__NAMESPACE = window;</script>'
