@@ -67,3 +67,5 @@ export default class PlayerSettings{
         return `${prop} was set to ${value}`
     }
 }
+
+const playersettings = new PlayerSettings()
