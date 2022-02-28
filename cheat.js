@@ -48,17 +48,21 @@ export default function cheat() {
 			'0) Cancel',
 			`1) Fast Polling: ${poll}`,
 			`2) Rapid Fire: ${rapidfire}`,
-			`3) Kill All Players`,
+			'3) Kill All Players',
 			`4) Depixelate: ${depixelate}`,
 			'5) Clear Map Data (DANGEROUS!) (removes 99% of walls)',
 			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`,
-			`7) Player Settings`
+			'7) Player Settings',
+			'8) Run arbitrary code using eval()'
 		].join('\n');
 
 		const setting = prompt(message, '0')
 
 		switch (setting) {
+			case 'null': break
+			case null: break
 			case '0': return
+				
 			case '1':
 				poll = !poll;
 				alert(`Fast Polling was set to ${poll ? 'ON' : 'OFF'}`)
@@ -109,6 +113,10 @@ export default function cheat() {
 				if((prop == '0') || (prop == null))return;
 				const value = prompt(`Input new value for ${PlayerSettings.numberToPropName(prop)}`)
 				alert(PlayerSettings.setProperty(prop, value))
+				break;
+			case '8':
+				const script = prompt('Paste your script here:', '')
+				alert('FROM EVAL: ' + eval(script))
 				break;
 			default:
 				alert(`Are you stupid? '${setting}' is not on the list!`)
