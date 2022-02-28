@@ -3,8 +3,8 @@ export default class PlayerSettings{
     static get team(){return localPlayer.team}
     static set isCactus(value){FOV = value}
     static get isCactus(){return localPlayer.isACactus}
-    static set walkSpeed(value){return localPlayer.isACactus = value}
-    static get walkSpeed(){return playerSpeedMultiplier}
+    static set walkSpeed(value){playerSpeed = value}
+    static get walkSpeed(){return playerSpeed}
     static set turnSpeed(value){rotationSpeed = value}
     static get turnSpeed(){return rotationSpeed}
     static set FOV(value){FOV = value}
