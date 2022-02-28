@@ -25,7 +25,6 @@ export default function cheat() {
 	/*
 	const scopeLeaker = '<script>window.__NAMESPACE = window;</script>'
 	document.body.append(styles, scopeLeaker)
-
 	const scope = new Promise((resolve) => {
 		function check() {
 			if (__NAMESPACE) {
@@ -136,7 +135,7 @@ export default function cheat() {
 				localPlayer.x = x
 				localPlayer.y = y
 				if(dir)localPlayer.dir = dir
-				alert(`Teleported to (${x}, ${y})` + (dir) ? ` Facing ${dir} degrees`)
+				alert(`Teleported to (${x}, ${y})` + (dir) ? ` Facing ${dir} degrees`:'')
 				break;
 			default:
 				alert(`Are you stupid? '${setting}' is not on the list!`)
