@@ -4,7 +4,9 @@ export default function cheat() {
 	if (window.__cheatsON) return 'You already turned on cheats!'
 	window.__cheatsON = true
 	const canvas = document.getElementById('gameCanvas')
+	const context = canvas.getContext('2d')
 	const styles = document.createElement('style')
+	const normalTransform = context.getTransform()
 	let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
 
 	/*
@@ -83,7 +85,7 @@ export default function cheat() {
 				break;
 			case '6':
 				useFullscreen = !useFullscreen;
-				styles.innerHTML = (!useFullscreen) ? '' : 'html, body, canvas {overflow: hidden;margin: 0 !important;padding: 0 !important;width:100%;height:100%;display:block;background-color: #000045;position: fixed;left:0;top:0;}'
+				styles.innerHTML = (!useFullscreen) ? '' : 'html, body, #gameCanvas {overflow: hidden;margin: 0 !important;padding: 0 !important;width:100%;height:100%;display:block;background-color: #000045;position: fixed;left:0;top:0;}'
 				canvas.style = (useFullscreen) ? '' : 'height: 480px; width: 640px; image-rendering: pixelated; margin-left: auto;margin-right: auto;display: block;'
 				alert(`True Fullscreen was set to ${useFullscreen ? 'ON' : 'OFF'}`)
 				break;
@@ -100,6 +102,8 @@ export default function cheat() {
 	canvas.onresize = resizeCanvas
 	function resizeCanvas() {
 		if (!useFullscreen) return;
+		context.setTransform(normalTransform)
+		context.scale(innerWidth / screen.width, innerHeight / screen.height)
 		canvas.width = innerWidth;
 		canvas.height = innerHeight;
 	}
