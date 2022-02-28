@@ -49,10 +49,10 @@ export default function cheat() {
 			`2) Rapid Fire: ${rapidfire}`,
 			'3) Kill All Players',
 			`4) Depixelate: ${depixelate}`,
-			'5) Clear Map Data (DANGEROUS!) (removes 99% of walls)',
+			'5) Clear Map Data (DANGEROUS!) (removes 99% of walls!) (DOESN\'T REMOVE COLLISIONS!)',
 			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`,
 			'7) Player Settings',
-			'8) Run arbitrary code using eval()'
+			'8) Run arbitrary code using eval()',
 			'9) Load arbitrary code from URL'
 		].join('\n');
 
@@ -136,7 +136,7 @@ export default function cheat() {
 	canvas.addEventListener('resize', resizeCanvas)
 	resizeCanvas();
 	setInterval(() => {
-		if (rapidfire && firing) { cKeyPressed(); lastShot = 0; }
+		if (rapidfire && firing) { lastShot = -100000; cKeyPressed(); }
 		if (poll) { lastUpload = 0; }
 	}, 1)
 	return 'Press "z" to open up cheat menu'
