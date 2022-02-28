@@ -64,7 +64,7 @@ export default class PlayerSettings{
                 break
         }
 
-        return `${prop} was set to ${value}`
+        return `${this.numberToPropName(this.prop)} was set to ${value}`
     }
 }
 
