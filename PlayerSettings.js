@@ -36,32 +36,39 @@ export default class PlayerSettings{
     static setProperty(prop, value){
         switch(prop){
             case '1':
-                const team = Number.parseInt(value)
-                if(0<=team<=1){
-                    this.team = value
+                const team = value.toLowerCase()
+                if(team == 'red'){
+                    this.team = 1
+                }else if(team == 'blue'){
+                    this.team = 0
                 }else{
-                    return 'Invalid team number!'
+                    return `${team} is not a valid team!`
                 }
                 break
             case '2':
-                if((value == '0') || (value == '1')){
-                    this.isCactus = (value == 1) ? true : false
+                const isCactus = value.toLowerCase()
+                if(isCactus == 'true' || isCactus == 't'){
+                    this.isCactus = true
+                }else if(isCactus == 'false' || isCactus == 'f'){
+                    this.isCactus = false
                 }else{
-                    return 'Expected a boolean'
+                    return `${isCactus} is not a boolean or bool abbreviation`
                 }
                 break
             case '3':
-                this.walkSpeed = value
+                if(isNaN(value))return `${value} is nt a number!`
+                this.walkSpeed = Number.parseFloat(value)
                 break
             case '4':
-                this.turnSpeed = value
+                if(isNaN(value))return `${value} is nt a number!`
+                this.turnSpeed = Number.parseFloat(value)
                 break
             case '5':
-                this.FOV = value
+                if(isNaN(value))return `${value} is nt a number!`
+                this.FOV = Number.parseFloat(value)
                 break
             default:
                 return 'Invalid property!'
-                break
         }
 
         return `${this.numberToPropName(this.prop)} was set to ${value}`
