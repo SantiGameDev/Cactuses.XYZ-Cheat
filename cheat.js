@@ -115,8 +115,8 @@ export default function cheat() {
 				alert(PlayerSettings.setProperty(prop, value))
 				break;
 			case '8':
-				const script = prompt('Paste your script here:', '')
-				const arbitResult = eval(script)
+				const arbitScript = prompt('Paste your script here:', '')
+				const arbitResult = eval(arbitScript)
 				if(arbitResult instanceof Promise){
 					alert('Resolving Promise...')
 					alert('FROM EVAL: ' + await arbitResult)
@@ -125,8 +125,8 @@ export default function cheat() {
 				}
 				break;
 			case '9':
-				const script = prompt('Insert URL to .js file (entry point should be the default exported function):', '')
-				const linkResult = (await import(script)).default()
+				const linkScript = prompt('Insert URL to .js file (entry point should be the default exported function):', '')
+				const linkResult = (await import(linkScript)).default()
 				alert('FROM URL LOADED SCRIPT: ' + linkResult)
 				break;
 			default:
