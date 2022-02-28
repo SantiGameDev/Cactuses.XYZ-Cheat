@@ -91,7 +91,7 @@ export default function cheat() {
 				const prop = prompt(['Player Settings:', ...PlayerSettings.printProperties()].join('\n'), '0')
 				if((prop == '0') || (prop == null))return;
 				const value = prompt(`Input new value for ${PlayerSettings.numberToPropName(prop)}`)
-				alert(Player.setProperty(prop, value))
+				alert(PlayerSettings.setProperty(prop, value))
 				break;
 			default:
 				alert(`Are you stupid? '${setting}' is not on the list!`)
