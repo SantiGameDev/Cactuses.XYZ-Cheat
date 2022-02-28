@@ -88,6 +88,7 @@ export default function cheat() {
 				useFullscreen = !useFullscreen;
 				styles.innerHTML = (!useFullscreen) ? '' : 'html, body, #gameCanvas {overflow: hidden;margin: 0 !important;padding: 0 !important;width:100%;height:100%;display:block;background-color: #000045;position: fixed;left:0;top:0;}'
 				canvas.style = (useFullscreen) ? '' : 'height: 480px; width: 640px; image-rendering: pixelated; margin-left: auto;margin-right: auto;display: block;'
+				resizeCanvas();
 				alert(`True Fullscreen was set to ${useFullscreen ? 'ON' : 'OFF'}`)
 				break;
 			case '7':
