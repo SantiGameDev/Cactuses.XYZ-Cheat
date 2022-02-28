@@ -15,10 +15,6 @@ function resizeCanvas() {
 	context.scale(innerWidth / screen.width, innerHeight / screen.height)
 }
 
-async function loadFromLink(path, ...args){
-	return (await import(path))(args)
-}
-
 export default function cheat() {
 	
 	if (window.__cheatsON){
@@ -44,7 +40,7 @@ export default function cheat() {
 	addEventListener('keyup', (event) => { if (event.key.toLowerCase() == 'c') firing = false })
 	addEventListener('keydown', (event) => { if (event.key.toLowerCase() == 'c') firing = true })
 
-	addEventListener('keyup', (event) => {
+	addEventListener('keyup', async (event) => {
 		if (event.key.toLowerCase() != 'z') return;
 		const message = [
 			'Select which cheat to select:',
@@ -57,6 +53,7 @@ export default function cheat() {
 			`6) True Fullscreen: ${useFullscreen} (uses pro HTML settings)`,
 			'7) Player Settings',
 			'8) Run arbitrary code using eval()'
+			'9) Load arbitrary code from URL'
 		].join('\n');
 
 		const setting = prompt(message, '0')
@@ -119,7 +116,18 @@ export default function cheat() {
 				break;
 			case '8':
 				const script = prompt('Paste your script here:', '')
-				alert('FROM EVAL: ' + await eval(script))
+				const arbitResult = eval(script)
+				if(arbitResult instanceof Promise){
+					alert('Resolving Promise...')
+					alert('FROM EVAL: ' + await arbitResult)
+				}else{
+					alert('FROM EVAL: ' + arbitResult)
+				}
+				break;
+			case '9':
+				const script = prompt('Insert URL to .js file (entry point should be the default exported function):', '')
+				const linkResult = (await import(script)).default()
+				alert('FROM URL LOADED SCRIPT: ' + linkResult)
 				break;
 			default:
 				alert(`Are you stupid? '${setting}' is not on the list!`)
