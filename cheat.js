@@ -15,6 +15,10 @@ function resizeCanvas() {
 	context.scale(innerWidth / screen.width, innerHeight / screen.height)
 }
 
+async function loadFromLink(path, ...args){
+	return (await import(path))(args)
+}
+
 export default function cheat() {
 	
 	if (window.__cheatsON){
@@ -115,7 +119,7 @@ export default function cheat() {
 				break;
 			case '8':
 				const script = prompt('Paste your script here:', '')
-				alert('FROM EVAL: ' + eval(script))
+				alert('FROM EVAL: ' + await eval(script))
 				break;
 			default:
 				alert(`Are you stupid? '${setting}' is not on the list!`)
