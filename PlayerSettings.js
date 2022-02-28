@@ -36,7 +36,7 @@ export default class PlayerSettings{
     static setProperty(prop, value){
         switch(prop){
             case '1':
-                const team = Number.parseInt(team)
+                const team = Number.parseInt(value)
                 if(0<=team<=1){
                     this.team = value
                 }else{
