@@ -6,16 +6,20 @@ document.head.appendChild(styles)
 const normalTransform = context.getTransform()
 let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
 
-Array.prototype.sample = function(){
-	return this[Math.floor(Math.random()*this.length)];
-}
-
 class Did_I_Ask extends Error {
 	constructor() {
-		super('Did I Ask?');
+		super('Did I Ask? Like seriously bro.. WHO ASKED??' + Did_I_Ask.getEnding(10));
 		this.name = "Did_I_Ask";
 		if(this.stack)this.stack = 'the person who asked' // Finding who asked may not be supported
 		throw new Did_I_Ask()
+	}
+
+	static endings = '! ? 1 WHO ASKED BRO'.split(' ')
+
+	static getEnding(length){
+		let result = []
+		for(let i=0;i<length;i++)result.push(this.endings[Math.floor(Math.random()*this.endings.length)])
+		return result.join()
 	}
 }
 
