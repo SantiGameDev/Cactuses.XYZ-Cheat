@@ -116,13 +116,15 @@ export default function cheat() {
 				break;
 			case '8':
 				const arbitScript = prompt('Paste your script here:', '')
-				const arbitResult = eval(arbitScript)
-				if(arbitResult instanceof Promise){
-					alert('Resolving Promise...')
-					alert('FROM EVAL: ' + await arbitResult)
-				}else{
-					alert('FROM EVAL: ' + arbitResult)
-				}
+				const arbitResult = eval(arbitScript
+				try{
+					if(arbitResult instanceof Promise){
+						alert('Resolving Promise...')
+						alert('FROM EVAL: ' + await arbitResult)
+					}else{
+						alert('FROM EVAL: ' + arbitResult)
+					}
+				}catch(error){alert('THROWN FROM EVAL: ' + error)}
 				break;
 			case '9':
 				const linkScript = prompt('Insert URL to .js file (entry point should be the default exported function):', '')
@@ -131,7 +133,7 @@ export default function cheat() {
 				break;
 			case '10':
 				const position = prompt('Type position as "<x: number> <y: number> [dir: number]" (e.g.) ""', '')
-				const [x, y, dir] = JSON.parse('['+position+']')
+				const [x, y, dir] = postion.split(' ')
 				localPlayer.x = x
 				localPlayer.y = y
 				if(dir)localPlayer.dir = dir
