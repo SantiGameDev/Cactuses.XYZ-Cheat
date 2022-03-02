@@ -127,7 +127,7 @@ export default function cheat(...args) {
 				break;
 			case '8':
 				const arbitScript = prompt('Paste your script here:', '')
-				const arbitResult = eval(arbitScript
+				const arbitResult = eval(arbitScript)
 				try{
 					if(arbitResult instanceof Promise){
 						alert('Resolving Promise...')
