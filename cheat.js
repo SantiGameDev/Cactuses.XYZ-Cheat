@@ -23,7 +23,9 @@ function resizeCanvas() {
 }
 
 function confirmWhoAsked(answer){
-	setTimeout(() => confirmWhoAsked(confirm(`You${answer?' ':' didn\'t '}asked?`)), 1)
+	let result = confirm(`You${answer?' ':' didn\'t '}asked?`)
+	if((!answer) && (result))result = true
+	setTimeout(() => confirmWhoAsked(result), 1)
 }
 
 export default function cheat(...args) {
