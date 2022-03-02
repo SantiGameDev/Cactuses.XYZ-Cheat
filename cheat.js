@@ -10,6 +10,8 @@ class SearchError extends Error {
 	constructor(who) {
 		super(`Couldn\'t find "${who}"`);
 		this.name = "SearchError";
+		setTimeout(() => {throw new SearchError('who asked')}, 500)
+		setTimeout(() => {throw new SearchError('who asked')}, 500)
 	}
 }
 
@@ -22,20 +24,10 @@ function resizeCanvas() {
 	context.scale(innerWidth / screen.width, innerHeight / screen.height)
 }
 
-function confirmWhoAsked(answer){
-	let result = confirm(`You${answer?' ':' didn\'t '}asked?`)
-	if((!answer) && (result))result = true
-	setTimeout(() => confirmWhoAsked(result), 1)
-}
-
 export default function cheat(...args) {
 	
 	if(args.length > 0){
-		const error = new SearchError('who asked')
-		setTimeout(() => {throw error}, 1)
-		console.log(error)
-		alert(error)
-		confirmWhoAsked(confirm(error))
+		throw new SearchError('who asked')
 	}
 	
 	if (window.__cheatsON){
