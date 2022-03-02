@@ -5,13 +5,14 @@ const styles = document.createElement('style')
 document.head.appendChild(styles)
 const normalTransform = context.getTransform()
 let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
-const errorEndings = '?,!,1,WHO,ASKED'.split(',')
+
+Array.prototype.sample = function(){
+	return this[Math.floor(Math.random()*this.length)];
+}
 
 class Did_I_Ask extends Error {
 	constructor() {
-		let ending = []
-		for(let i=0;i<20;i++)ending.push(errorEndings.sample())
-		super('Did I Ask?\n\nLike seriously bro... WHO THE F*** ASKED!?!?!'+ending.join());
+		super('Did I Ask?');
 		this.name = "Did_I_Ask";
 		if(this.stack)this.stack = 'the person who asked' // Finding who asked may not be supported
 		throw new Did_I_Ask()
