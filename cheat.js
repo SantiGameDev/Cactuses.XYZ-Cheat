@@ -13,7 +13,7 @@ class Did_I_Ask extends Error {
 		if(this.stack)this.stack = 'the person who asked' // Finding who asked may not be supported
 	}
 
-	static endings = '! ? 1 WHO ASKED BRO \n'.split(' ')
+	static endings = '! ? 1 WHO ASKED BRO 😠 😡 😤 👿 😾 \n'.split(' ')
 
 	static getEnding(length){
 		let result = []
