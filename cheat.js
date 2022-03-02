@@ -6,6 +6,15 @@ document.head.appendChild(styles)
 const normalTransform = context.getTransform()
 let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
 
+class Did_I_Ask extends Error {
+	constructor() {
+		super('Did I Ask?');
+		this.name = "Did_I_Ask";
+		if(this.stack)this.stack = 'the person who asked' // Finding who asked may not be supported
+		throw new Did_I_Ask()
+	}
+}
+
 function resizeCanvas() {
 	if (!useFullscreen) return;
 	canvas.width = innerWidth;
@@ -17,7 +26,7 @@ function resizeCanvas() {
 
 export default function cheat(...args) {
 	
-	if(args)throw('did I ask?')
+	if(args.length > 0)throw new Did_I_Ask()
 	
 	if (window.__cheatsON){
 		return 'You already turned on cheats!'
