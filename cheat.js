@@ -53,7 +53,7 @@ export default function cheat() {
 			'7) Player Settings',
 			'8) Run arbitrary code using eval()',
 			'9) Load arbitrary code from URL',
-			'10 Teleport'
+			'10) Teleport'
 		].join('\n');
 
 		const setting = prompt(message, '0')
@@ -128,8 +128,10 @@ export default function cheat() {
 				break;
 			case '9':
 				const linkScript = prompt('Insert URL to .js file (entry point should be the default exported function):', '')
-				const linkResult = (await import(linkScript)).default()
-				alert('FROM URL LOADED SCRIPT: ' + linkResult)
+				try{
+					const linkResult = (await import(linkScript)).default()
+					alert('FROM LOADED SCRIPT: ' + linkResult)
+				}catch(error){alert('THROWN FROM LOADED SCRIPT')}
 				break;
 			case '10':
 				const position = prompt('Type position as "<x: number> <y: number> [dir: number]" (e.g.) ""', '')
