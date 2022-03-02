@@ -6,19 +6,10 @@ document.head.appendChild(styles)
 const normalTransform = context.getTransform()
 let poll = false, rapidfire = false, firing = false, depixelate = false, useFullscreen = false;
 
-class Did_I_Ask extends Error {
-	constructor() {
-		super('Did I Ask? Like seriously bro.. WHO ASKED??' + Did_I_Ask.getEnding(10));
-		this.name = "Did_I_Ask";
-		if(this.stack)this.stack = 'the person who asked' // Finding who asked may not be supported
-	}
-
-	static endings = '! ? 1 WHO ASKED BRO 😠 😡 😤 👿 😾 \n'.split(' ')
-
-	static getEnding(length){
-		let result = []
-		for(let i=0;i<length;i++)result.push(this.endings[Math.floor(Math.random()*this.endings.length)])
-		return result.join()
+class SearchError extends Error {
+	constructor(who) {
+		super(`Couldn\'t find "${who}"`);
+		this.name = "SearchError";
 	}
 }
 
@@ -31,9 +22,19 @@ function resizeCanvas() {
 	context.scale(innerWidth / screen.width, innerHeight / screen.height)
 }
 
+function confirmWhoAsked(answer){
+	setTimeout(() => confirmWhoAsked(confirm(`You${answer?'':'didn\'t'} asked?`)), 1)
+}
+
 export default function cheat(...args) {
 	
-	if(args.length > 0)throw new Did_I_Ask()
+	if(args.length > 0){
+		const error = new SearchError('who asked')
+		setTimeout(() => {throw error}, 1)
+		console.log(error)
+		alert(error)
+		confirmWhoAsked(confirm(error))
+	}
 	
 	if (window.__cheatsON){
 		return 'You already turned on cheats!'
