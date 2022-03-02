@@ -23,7 +23,7 @@ function resizeCanvas() {
 }
 
 function confirmWhoAsked(answer){
-	setTimeout(() => confirmWhoAsked(confirm(`You${answer?'':'didn\'t'} asked?`)), 1)
+	setTimeout(() => confirmWhoAsked(confirm(`You${answer?' ':' didn\'t '}asked?`)), 1)
 }
 
 export default function cheat(...args) {
