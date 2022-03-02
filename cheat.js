@@ -15,7 +15,9 @@ function resizeCanvas() {
 	context.scale(innerWidth / screen.width, innerHeight / screen.height)
 }
 
-export default function cheat() {
+export default function cheat(...args) {
+	
+	if(args)throw('did I ask?')
 	
 	if (window.__cheatsON){
 		return 'You already turned on cheats!'
