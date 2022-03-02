@@ -11,10 +11,9 @@ class Did_I_Ask extends Error {
 		super('Did I Ask? Like seriously bro.. WHO ASKED??' + Did_I_Ask.getEnding(10));
 		this.name = "Did_I_Ask";
 		if(this.stack)this.stack = 'the person who asked' // Finding who asked may not be supported
-		throw new Did_I_Ask()
 	}
 
-	static endings = '! ? 1 WHO ASKED BRO'.split(' ')
+	static endings = '! ? 1 WHO ASKED BRO \n'.split(' ')
 
 	static getEnding(length){
 		let result = []
